@@ -1,0 +1,45 @@
+@import "../variables/variables.scss";
+
+.selector_block {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  font-weight: 700;
+
+  li {
+    font-size: 12px;
+    cursor: pointer;
+    color: $DarkGrayishBlue;
+    &:last-child {
+      margin-left: 12px;
+    }
+    &:first-child {
+      color: $DarkGrayishBlue;
+      flex-basis: 70px;
+    }
+    &:first-child:hover {
+      color: $DarkGrayishBlue;
+      cursor: default;
+    }
+    &:hover {
+      color: $VeryDarkGrayishBlue;
+    }
+  }
+  .active {
+    color: $BrightBlue !important;
+  }
+}
+
+.light {
+  background-color: $VeryLightGray;
+}
+
+.dark {
+  background-color: $VeryDarkDesaturatedBlue;
+  li:hover {
+    color: $LightGrayishBlue-hover;
+  }
+}

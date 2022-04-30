@@ -1,51 +1,105 @@
-@import './variables/variables.scss';
+@import "./variables/variables.scss";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-size: 18px;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
 
-
-
 .app {
-  background: url("./assets/bg-desktop-light.jpg");
   background-repeat: no-repeat;
+  background-size: 100vw 250px;
 
   display: grid;
   grid-template-columns: 400px;
   grid-template-rows: 250px auto;
   justify-content: center;
-  
+
+  position: relative;
 }
 
 .tasks-wrapper {
   grid-row: 2;
-  box-shadow: 0px 14px 8px 0px rgba(34, 60, 80, 0.2);
-  
+  box-shadow: 0px 8px 8px 0px rgba(34, 60, 80, 0.2);
+  border-radius: 4px;
+
   display: flex;
   flex-direction: column;
+
+  visibility: visible;
+
+  position: relative;
+  margin-top: -2rem;
+
+  &--hide {
+    visibility: hidden;
+  }
 }
 
-header {
+.app__header {
   position: relative;
   grid-row: 1;
   align-self: center;
-  
 }
-.header-input {
+.app__header-input {
   display: flex;
   flex-direction: column;
+  margin-top: 2rem;
 
-  
+  div {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
 }
-.header-title {
+.app__header-title {
   color: $VeryLightGray;
   font-size: 30px;
   letter-spacing: 0.1rem;
-  margin-bottom: 2rem;
 }
 
+.light {
+  background: url("./assets/bg-desktop-light.jpg");
+  background-repeat: no-repeat;
+  background-size: 100vw 250px;
+}
+
+.dark {
+  background: url("./assets/bg-desktop-dark.jpg");
+  background-repeat: no-repeat;
+  background-size: 100vw 250px;
+}
+
+@media screen and (max-width: 480px) {
+  .app {
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: 250px auto;
+    justify-content: center;
+  }
+  .app__header {
+    margin: 1rem;
+    margin-bottom: 4rem;
+  }
+  .tasks-wrapper {
+    margin: 1rem;
+    margin-top: -3rem;
+  }
+  .light {
+    background: url("./assets/bg-mobile-light.jpg");
+    background-repeat: no-repeat;
+    background-size: 100vw;
+  }
+
+  .dark {
+    background: url("./assets/bg-mobile-dark.jpg");
+    background-repeat: no-repeat;
+    background-size: 100vw;
+  }
+}

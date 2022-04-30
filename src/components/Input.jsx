@@ -1,33 +1,43 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
-import './Input.scss'
+import styles from "./Input.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { setCount, setTask } from "../features/tasks/tasksSlice";
 
-function Input({ tasks, setTask }) {
+function Input() {
+  const { count, tasks } = useSelector((state) => state.tasksRedux);
+  const { theme } = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
   const [input, setInput] = useState("");
+
   const submitTask = (e) => {
     e.preventDefault();
-    setTask([
-      ...tasks,
-      {
-        text: input,
-        completed: false,
-        active: true,
-        id: uuidv4(),
-      },
-    ]);
-    setInput("");
+    if (input.length) {
+      dispatch(
+        setTask([
+          ...tasks,
+          {
+            text: input,
+            completed: false,
+            id: uuidv4(),
+          },
+        ])
+      );
+      setInput("");
+      dispatch(setCount(count + 1));
+    }
   };
   return (
-    <form action="submit" className="form">
+    <form action="submit" className={styles.form}>
       <input
         type="text"
         placeholder="Create a new todo..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className='form__input'
+        className={`${styles.form__input} ${styles[theme]}`}
       />
-      <button className="form__btn" onClick={submitTask}></button>
+      <button className={styles.form__btn} onClick={submitTask}></button>
     </form>
   );
 }

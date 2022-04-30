@@ -1,0 +1,123 @@
+@import "../variables/variables.scss";
+
+.single_task {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  &:hover {
+    .cross_img {
+      visibility: visible;
+    }
+  }
+}
+
+.light {
+  .single_task {
+    background-color: $VeryLightGray;
+    border-bottom: 1px solid grey;
+  }
+  .check_text {
+    p {
+      color: $VeryDarkGrayishBlue;
+    }
+  }
+
+  .check_img {
+    opacity: 0;
+    &__active {
+      opacity: 1;
+    }
+  }
+
+  .check_outline {
+    background: $VeryLightGray;
+    &__active {
+      background: $CheckBackground;
+      opacity: 1;
+      outline: none;
+    }
+  }
+}
+
+.dark {
+  .single_task {
+    background-color: $VeryDarkDesaturatedBlue;
+    border-bottom: 1px solid $DarkGrayishBlue;
+  }
+  .check_text {
+    p {
+      color: $LightGrayishBlue;
+    }
+  }
+  .check_img {
+    opacity: 0;
+    &__active {
+      opacity: 1;
+    }
+  }
+
+  .check_outline {
+    background: $VeryDarkDesaturatedBlue;
+    &__active {
+      background: $CheckBackground;
+      opacity: 1;
+      outline: none;
+    }
+  }
+}
+
+.cross_img {
+  cursor: pointer;
+  visibility: hidden;
+  margin-top: 2px;
+}
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.check_text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+
+  p {
+    cursor: pointer;
+    font-size: 16px;
+    word-wrap: break-word;
+    display: inline-block;
+    width: 90%;
+    margin-top: 3px;
+  }
+}
+
+.check_outline {
+  border-radius: 50%;
+  outline: 1px solid $DarkGrayishBlue;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  opacity: 0.4;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.check_img {
+  border-radius: 50%;
+  padding: 4px;
+  padding-left: 5px;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+@media screen and (max-width: 480px) {
+  .cross_img {
+    visibility: visible;
+  }
+}

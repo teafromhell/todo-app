@@ -1,38 +1,53 @@
+import { useDispatch, useSelector } from "react-redux";
 import "./App.scss";
-//import background from "./assets/bg-desktop-light.jpg";
 import Input from "./components/Input";
 import ListOfTasks from "./components/ListOfTasks";
-import { useEffect, useState } from "react";
+import { setTheme } from "./features/tasks/themeSlice";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 function App() {
-  const [tasks, setTask] = useState([]);
-  const [filteredTasks, setFilteredTask] = useState([]);
+  const { tasks } = useSelector((state) => state.tasksRedux);
+  const { theme } = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
+  if (theme === "light") {
+    document.body.style.backgroundColor = "#FAFAFA";
+  } else {
+    document.body.style.backgroundColor = "#161722";
+  }
 
-  useEffect(()=>{
-    setFilteredTask(tasks)
-  }, [tasks])
-  
-  //console.log(filteredTasks)
-
- 
   return (
-    <div className="app">
-      <header>
-        {/* <div>
-          <img src={background} alt="background" />          
-        </div> */}
-        <div className="header-input">
-          <b className="header-title">T O D O</b>
-          <Input tasks={tasks} setTask={setTask} />
+    <div className={`app ${theme}`}>
+      <header className="app__header">
+        <div className="app__header-input">
+          <div>
+            <b className="app__header-title">T O D O</b>
+            {theme === "light" ? (
+              <FiMoon
+                onClick={() =>
+                  dispatch(setTheme(theme === "light" ? "dark" : "light"))
+                }
+                style={{ color: "white", cursor: "pointer" }}
+                size={30}
+              />
+            ) : (
+              <FiSun
+                onClick={() =>
+                  dispatch(setTheme(theme === "light" ? "dark" : "light"))
+                }
+                style={{ color: "white", cursor: "pointer" }}
+                size={30}
+              />
+            )}
+          </div>
+          <Input />
         </div>
       </header>
-      <main className="tasks-wrapper">
-        <ListOfTasks
-          setTask={setTask}
-          tasks={tasks}
-          filteredTasks={filteredTasks}
-          setFilteredTask={setFilteredTask}
-        />
+      <main
+        className={`tasks-wrapper ${
+          tasks.length === 0 ? "tasks-wrapper--hide" : ""
+        }`}
+      >
+        <ListOfTasks />
       </main>
     </div>
   );

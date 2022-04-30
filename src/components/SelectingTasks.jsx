@@ -1,71 +1,64 @@
-import React, { useState } from 'react'
-//import Task from './Task'
-//import Task from './Task'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "./SelectingTasks.module.scss";
+import { setTask, setFilteredTask } from "../features/tasks/tasksSlice";
 
-function SelectingTasks({tasks ,setTask, filteredTasks, setFilteredTask }) {
-    //const [completedTasks, setCompletedTasks] = useState([])
-    var heroes = [
-        {name: "Batman", franchise: 'DC'},
-        {name: 'Ironman', franchise: 'Marvel'},
-        {name: 'Thor', franchise: 'Marvel'},
-        {name: 'Superman', franchise: 'DC'}
-    ];
+function SelectingTasks() {
+  const { count, tasks, filteredTasks } = useSelector(
+    (state) => state.tasksRedux
+  );
+  const { theme } = useSelector((state) => state.theme);
+  const [select, setSelect] = useState("all");
+  const dispatch = useDispatch();
 
-    const selectAll=()=>{
-        setFilteredTask(tasks)
+  useEffect(() => {
+    if (select !== "active") {
+      dispatch(setFilteredTask(tasks));
     }
+  }, [count]);
 
-    const selectActive=()=>{
-        
-        
-        var marvelHeroes = heroes.filter(function(hero) {
-            return hero.franchise === 'Marvel';
-        });
-        console.log(marvelHeroes)
-        console.log(tasks)
-        var l = tasks.filter(function(item) {
-            return item.completed === true})
+  const selectAll = () => {
+    dispatch(setFilteredTask(tasks));
+    setSelect("all");
+  };
 
-        console.log(l)
-        
-    }
-    const selectCompleted=()=>{
+  const selectActive = () => {
+    dispatch(setFilteredTask(tasks.filter((item) => item.completed !== true)));
+    setSelect("active");
+    console.log(filteredTasks);
+  };
+  const selectCompleted = () => {
+    dispatch(setFilteredTask(tasks.filter((item) => item.completed === true)));
+    setSelect("completed");
+    console.log(filteredTasks);
+  };
+  const clearCompleted = () => {
+    dispatch(setTask(tasks.filter((item) => item.completed !== true)));
+    dispatch(setFilteredTask(tasks.filter((item) => item.completed !== true)));
+  };
 
-        setFilteredTask(
-            filteredTasks.filter((item)=> item.completed === true)
-            
-        )
-        console.log(filteredTasks)
-       
-
-        
-        // setCompletedTasks(
-        //     tasks.filter((item)=> item.completed === true)
-        //             .map((item)=> {
-        //                 console.log(item)
-        //                 return (
-        //                     <Task setTask={setCompletedTasks}
-        //                     task={item}
-        //                     key={item.id}
-        //                     text={item.text}
-        //                     completed={item.completed}
-        //                     tasks={completedTasks}/>
-        //                 )
-        //             })
-        // )
-    }
-    const clearCompleted=()=>{
-        
-    }
   return (
-    <div>
-        <span></span>
-        <span onClick={selectAll}>All</span>
-        <span onClick={selectActive}>Active</span>
-        <span onClick={selectCompleted}>Completed</span>
-        <span onClick={clearCompleted}>Clear Completed</span>
-    </div>
-  )
+    <ul className={`${styles.selector_block} ${styles[theme]}`}>
+      <li> {count} items left</li>
+      <li className={select === "all" ? styles.active : ""} onClick={selectAll}>
+        All
+      </li>
+      <li
+        className={select === "active" ? styles.active  : ""}
+        onClick={selectActive}
+      >
+        Active
+      </li>
+      <li
+        className={select === "completed" ? styles.active  : ""}
+        onClick={selectCompleted}
+      >
+        Completed
+      </li>
+      <li onClick={clearCompleted}>Clear Completed</li>
+    </ul>
+  );
 }
 
-export default SelectingTasks
+export default SelectingTasks;

@@ -1,0 +1,26 @@
+@import "../variables/variables.scss";
+
+.form__btn {
+  display: none;
+}
+.form__input {
+  padding: 15px;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.light {
+  background-color: $VeryLightGray;
+  color: $VeryDarkGrayishBlue;
+}
+
+.dark {
+  background-color: $VeryDarkDesaturatedBlue;
+  color: $VeryLightGray;
+}

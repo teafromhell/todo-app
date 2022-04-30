@@ -1,31 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./ListOfTasks.scss";
 import SelectingTasks from "./SelectingTasks";
 
 import Task from "./Task";
 
-function ListOfTasks({ tasks, setTask, setFilteredTask, filteredTasks }) {
-    
+function ListOfTasks() {
+  const { tasks, filteredTasks } = useSelector((state) => state.tasksRedux);
   return (
     <>
       {filteredTasks.map((item) => {
-          
-          
         return (
-            
           <Task
-          setTask={setTask}
-          tasks={tasks}
-          setFilteredTask={setFilteredTask}
+            
             task={item}
             key={item.id}
             text={item.text}
             completed={item.completed}
-            filteredTasks={filteredTasks}
           />
         );
       })}
-       {tasks.length > 0 && <SelectingTasks tasks={tasks} filteredTasks={filteredTasks} setFilteredTask={setFilteredTask} />}
+      {tasks.length > 0 && <SelectingTasks />}
     </>
   );
 }
