@@ -29,7 +29,7 @@ function Input() {
     }
   };
   return (
-    <form action="submit" className={styles.form}>
+    <form onSubmit={submitTask} action="submit" className={styles.form}>
       <input
         type="text"
         placeholder="Create a new todo..."
@@ -37,7 +37,6 @@ function Input() {
         onChange={(e) => setInput(e.target.value)}
         className={`${styles.form__input} ${styles[theme]}`}
       />
-      <button className={styles.form__btn} onClick={submitTask}></button>
     </form>
   );
 }
